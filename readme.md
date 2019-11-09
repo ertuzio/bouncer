@@ -1,3 +1,5 @@
+readme.md
+
 <img src="https://user-images.githubusercontent.com/1403741/39606419-587dbb1e-4f03-11e8-8e54-1bb2f39fb0f5.jpg">
 
 # Bouncer
@@ -547,11 +549,16 @@ For convenience, the bouncer class provides these passthrough methods:
 
 ```php
 Bouncer::can($ability);
+Bouncer::can($ability, $model);
+Bouncer::canAny($arrayOfAbilities);
+Bouncer::canAny($arrayOfAbilities, $model);
 Bouncer::cannot($ability);
+Bouncer::cannot($ability, $model);
 Bouncer::authorize($ability);
+Bouncer::authorize($ability, $model);
 ```
 
-These call directly into the `Gate` class.
+These call directly into the `Gate` class, so bouncer abilities can also be checked directly on the gate e.g. `Gate::can($ability)`.
 
 ### Blade directives
 
@@ -993,6 +1000,7 @@ Bouncer::sync($user)->roles($roles);
 $boolean = Bouncer::can('ban-users');
 $boolean = Bouncer::can('edit', Post::class);
 $boolean = Bouncer::can('delete', $post);
+$boolean = Bouncer::canAny(['delete', 'edit'], $post);
 
 $boolean = Bouncer::cannot('ban-users');
 $boolean = Bouncer::cannot('edit', Post::class);
